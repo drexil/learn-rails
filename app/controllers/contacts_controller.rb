@@ -6,7 +6,7 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(secure_params)
     if @contact.valid?
-      # TODO save data
+      # @contact.update_spreadsheet # Sort out 2factor auth later on
       # TODO send message
       flash[:notice] = "Message sent from #{@contact.name}."
       redirect_to root_path
