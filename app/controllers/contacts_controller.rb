@@ -7,7 +7,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new(secure_params)
     if @contact.valid?
       # @contact.update_spreadsheet # Sort out 2factor auth later on
-      # TODO send message
+      UserMailer.contact_email(@contact).deliver
       flash[:notice] = "Message sent from #{@contact.name}."
       redirect_to root_path
     else
@@ -16,6 +16,7 @@ class ContactsController < ApplicationController
   end
 
   private
+  
   def secure_params
     params.require(:contact).permit(:name, :email, :content)
   end
